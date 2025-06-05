@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserPreferences } from "@/pages/Index";
-import { Film } from "lucide-react";
+import { Film, ArrowLeft } from "lucide-react";
 
 interface UserPreferencesFormProps {
   onSubmit: (preferences: UserPreferences) => void;
@@ -20,7 +19,8 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
   const genres = [
     "Action", "Adventure", "Animation", "Comedy", "Crime", "Documentary",
     "Drama", "Family", "Fantasy", "Horror", "Mystery", "Romance",
-    "Science Fiction", "Thriller", "War", "Western"
+    "Science Fiction", "Sci-Fi", "Thriller", "War", "Western", "Adult",
+    "Biography", "History", "Music", "Musical", "Sport"
   ];
 
   const moods = [
@@ -71,7 +71,7 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   <SelectTrigger className="bg-white/20 border-white/30 text-white h-14 text-lg">
                     <SelectValue placeholder="Select a genre" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-white/30">
+                  <SelectContent className="bg-slate-800 border-white/30 z-50">
                     {genres.map((genre) => (
                       <SelectItem key={genre} value={genre} className="text-white hover:bg-white/20">
                         {genre}
@@ -89,7 +89,7 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   <SelectTrigger className="bg-white/20 border-white/30 text-white h-14 text-lg">
                     <SelectValue placeholder="Select your current mood" />
                   </SelectTrigger>
-                  <SelectContent className="bg-slate-800 border-white/30">
+                  <SelectContent className="bg-slate-800 border-white/30 z-50">
                     {moods.map((mood) => (
                       <SelectItem key={mood} value={mood} className="text-white hover:bg-white/20">
                         {mood}
@@ -105,9 +105,9 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
             <Button 
               type="button"
               onClick={onBack}
-              variant="outline"
-              className="px-8 py-3 text-lg border-white/30 text-white hover:bg-white/20"
+              className="bg-white/20 hover:bg-white/30 text-white border-white/30 px-8 py-3 text-lg flex items-center gap-2"
             >
+              <ArrowLeft className="w-5 h-5" />
               Back
             </Button>
             <Button 

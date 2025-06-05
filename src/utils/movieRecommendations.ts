@@ -1,11 +1,48 @@
-
 import { UserPreferences, MovieRecommendation } from "@/pages/Index";
+
+// API Configuration - Add your keys here
+const OPENAI_API_KEY = "your-openai-api-key-here";
+const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+const TMDB_API_KEY = "your-tmdb-api-key-here";
+const TMDB_READ_ACCESS_TOKEN = "your-tmdb-read-access-token-here";
 
 // This is a sophisticated recommendation engine that analyzes user preferences
 // In a real application, this would connect to TMDB API and use AI for recommendations
 export const generateMovieRecommendations = async (preferences: UserPreferences): Promise<MovieRecommendation[]> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 2000));
+
+  // TODO: Replace with actual OpenAI API call
+  // const openAIResponse = await fetch(OPENAI_URL, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Authorization': `Bearer ${OPENAI_API_KEY}`,
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({
+  //     model: 'gpt-4',
+  //     messages: [
+  //       {
+  //         role: 'system',
+  //         content: 'You are a movie recommendation expert. Analyze user preferences and suggest movies.'
+  //       },
+  //       {
+  //         role: 'user',
+  //         content: `Based on last movie: ${preferences.lastMovie}, preferred genre: ${preferences.preferredGenre}, and mood: ${preferences.currentMood}, suggest 10 movies.`
+  //       }
+  //     ]
+  //   })
+  // });
+
+  // TODO: Replace with actual TMDB API calls
+  // const tmdbResponse = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}`);
+  // Or using Read Access Token:
+  // const tmdbResponse = await fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}`, {
+  //   headers: {
+  //     'Authorization': `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
+  //     'Content-Type': 'application/json'
+  //   }
+  // });
 
   // Curated movie database with detailed information
   const movieDatabase: MovieRecommendation[] = [

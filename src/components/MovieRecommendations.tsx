@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserPreferences, MovieRecommendation } from "@/pages/Index";
-import { Film, Star } from "lucide-react";
+import { Film, Star, ArrowLeft } from "lucide-react";
 import { generateMovieRecommendations } from "@/utils/movieRecommendations";
 
 interface MovieRecommendationsProps {
@@ -97,9 +97,9 @@ const MovieRecommendations = ({
         <div className="text-center">
           <Button 
             onClick={onBack}
-            variant="outline"
-            className="px-8 py-3 text-lg border-white/30 text-white hover:bg-white/20"
+            className="bg-white/20 hover:bg-white/30 text-white border-white/30 px-8 py-3 text-lg flex items-center gap-2 mx-auto"
           >
+            <ArrowLeft className="w-5 h-5" />
             Update Preferences
           </Button>
         </div>

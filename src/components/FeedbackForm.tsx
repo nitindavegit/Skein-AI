@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MovieRecommendation } from "@/pages/Index";
-import { Film, Star, ThumbsUp, ThumbsDown } from "lucide-react";
+import { Film, Star, ThumbsUp, ThumbsDown, ArrowLeft } from "lucide-react";
 
 interface FeedbackFormProps {
   movie: MovieRecommendation;
@@ -130,9 +130,9 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
             <Button 
               type="button"
               onClick={onBack}
-              variant="outline"
-              className="px-8 py-3 text-lg border-white/30 text-white hover:bg-white/20"
+              className="bg-white/20 hover:bg-white/30 text-white border-white/30 px-8 py-3 text-lg flex items-center gap-2"
             >
+              <ArrowLeft className="w-5 h-5" />
               Back to Recommendations
             </Button>
             <Button 
