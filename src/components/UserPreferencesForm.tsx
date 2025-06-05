@@ -40,33 +40,33 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
   const isFormValid = lastMovie && preferredGenre && currentMood;
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden bg-black">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?q=80&w=3880&h=2586')`
+            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
           }}
         />
       </div>
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-12">
-        <div className="max-w-2xl mx-auto w-full">
+        <div className="max-w-xl mx-auto w-full">
           <div className="text-center mb-12">
-            <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-6">
-              <Film className="w-8 h-8 text-white" />
+            <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mx-auto mb-6">
+              <Film className="w-6 h-6 text-white" />
             </div>
-            <h2 className="text-5xl font-bold text-white mb-4 tracking-tight">Tell Us About You</h2>
-            <p className="text-xl text-gray-300 font-light">Help us craft your perfect viewing experience</p>
+            <h2 className="text-4xl font-light text-white mb-3 tracking-wide">Tell Us About You</h2>
+            <p className="text-lg text-gray-400 font-light">Help us find your perfect match</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="bg-black/40 backdrop-blur-xl rounded-3xl p-10 border border-white/10 shadow-2xl">
-              <div className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-gray-900/80 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+              <div className="space-y-6">
                 <div>
-                  <Label htmlFor="lastMovie" className="text-white text-lg font-medium mb-4 block tracking-wide">
+                  <Label htmlFor="lastMovie" className="text-white text-base font-medium mb-3 block">
                     What's the last movie you watched?
                   </Label>
                   <Input
@@ -74,21 +74,25 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                     value={lastMovie}
                     onChange={(e) => setLastMovie(e.target.value)}
                     placeholder="e.g., Dune, The Batman, Parasite..."
-                    className="bg-black/30 border-white/20 text-white placeholder-gray-400 text-lg p-6 h-16 rounded-xl focus:border-red-500/50 focus:ring-red-500/20 transition-all duration-300"
+                    className="bg-black/60 border-gray-700 text-white placeholder-gray-500 text-base p-4 h-12 rounded-md focus:border-red-600 focus:ring-red-600/20"
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="genre" className="text-white text-lg font-medium mb-4 block tracking-wide">
+                  <Label htmlFor="genre" className="text-white text-base font-medium mb-3 block">
                     What genre are you in the mood for?
                   </Label>
                   <Select value={preferredGenre} onValueChange={setPreferredGenre}>
-                    <SelectTrigger className="bg-black/30 border-white/20 text-white h-16 text-lg rounded-xl focus:border-purple-500/50 focus:ring-purple-500/20">
-                      <SelectValue placeholder="Select a genre" className="text-gray-400" />
+                    <SelectTrigger className="bg-black/60 border-gray-700 text-white h-12 text-base rounded-md focus:border-red-600 focus:ring-red-600/20">
+                      <SelectValue placeholder="Select a genre" />
                     </SelectTrigger>
-                    <SelectContent className="bg-black/95 border-white/20 backdrop-blur-xl">
+                    <SelectContent className="bg-gray-900 border-gray-700 backdrop-blur-sm z-50">
                       {genres.map((genre) => (
-                        <SelectItem key={genre} value={genre} className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer">
+                        <SelectItem 
+                          key={genre} 
+                          value={genre} 
+                          className="text-white hover:bg-gray-800 focus:bg-gray-800 cursor-pointer bg-gray-900"
+                        >
                           {genre}
                         </SelectItem>
                       ))}
@@ -97,16 +101,20 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                 </div>
 
                 <div>
-                  <Label htmlFor="mood" className="text-white text-lg font-medium mb-4 block tracking-wide">
+                  <Label htmlFor="mood" className="text-white text-base font-medium mb-3 block">
                     How are you feeling right now?
                   </Label>
                   <Select value={currentMood} onValueChange={setCurrentMood}>
-                    <SelectTrigger className="bg-black/30 border-white/20 text-white h-16 text-lg rounded-xl focus:border-amber-500/50 focus:ring-amber-500/20">
-                      <SelectValue placeholder="Select your current mood" className="text-gray-400" />
+                    <SelectTrigger className="bg-black/60 border-gray-700 text-white h-12 text-base rounded-md focus:border-red-600 focus:ring-red-600/20">
+                      <SelectValue placeholder="Select your current mood" />
                     </SelectTrigger>
-                    <SelectContent className="bg-black/95 border-white/20 backdrop-blur-xl">
+                    <SelectContent className="bg-gray-900 border-gray-700 backdrop-blur-sm z-50">
                       {moods.map((mood) => (
-                        <SelectItem key={mood} value={mood} className="text-white hover:bg-white/10 focus:bg-white/10 cursor-pointer">
+                        <SelectItem 
+                          key={mood} 
+                          value={mood} 
+                          className="text-white hover:bg-gray-800 focus:bg-gray-800 cursor-pointer bg-gray-900"
+                        >
                           {mood}
                         </SelectItem>
                       ))}
@@ -116,21 +124,21 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
               </div>
             </div>
 
-            <div className="flex gap-6 justify-center">
+            <div className="flex gap-4 justify-center">
               <Button 
                 type="button"
                 onClick={onBack}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 text-lg flex items-center gap-3 rounded-xl transition-all duration-300 hover:border-white/40"
+                className="bg-gray-800 hover:bg-gray-700 text-white border border-gray-700 px-6 py-3 text-base flex items-center gap-2 rounded-md"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="w-4 h-4" />
                 Back
               </Button>
               <Button 
                 type="submit"
                 disabled={!isFormValid}
-                className="bg-gradient-to-r from-red-600 to-purple-600 hover:from-red-700 hover:to-purple-700 text-white font-semibold px-16 py-4 text-lg rounded-xl transition-all duration-500 transform hover:scale-105 shadow-xl disabled:opacity-50 disabled:hover:scale-100 border-0"
+                className="bg-red-600 hover:bg-red-700 text-white font-medium px-12 py-3 text-base rounded-md disabled:opacity-50 disabled:hover:bg-red-600"
               >
-                Get My Recommendations
+                Get Recommendations
               </Button>
             </div>
           </form>
