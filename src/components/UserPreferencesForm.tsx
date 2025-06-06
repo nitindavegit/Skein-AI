@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserPreferences } from "@/pages/Index";
 import { ArrowLeft, Film, Sparkles, Heart, Zap, Smile, Frown, Star, ThumbsUp, Coffee, Sun, Moon, Music } from "lucide-react";
+import SplineScene from "./SplineScene";
 
 interface UserPreferencesFormProps {
   onSubmit: (preferences: UserPreferences) => void;
@@ -62,7 +62,7 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
-      {/* Enhanced Background with Overlay */}
+      {/* Enhanced Background with 3D element */}
       <div className="absolute inset-0 z-0">
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
@@ -71,6 +71,17 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/40 to-pink-900/30" />
+        
+        {/* Floating 3D Camera */}
+        <div className="absolute bottom-10 left-10 w-24 h-24 opacity-20 pointer-events-none">
+          <SplineScene 
+            scene="https://prod.spline.design/qh2NMudMGMr8Av2s/scene.splinecode"
+            className="w-full h-full"
+            fallback={
+              <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full animate-pulse"></div>
+            }
+          />
+        </div>
         
         {/* Floating Elements */}
         <div className="absolute top-20 left-10 w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-60"></div>

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UserPreferences, MovieRecommendation } from "@/pages/Index";
 import { Film, Star, ArrowLeft, Play, Sparkles, Zap } from "lucide-react";
 import { generateMovieRecommendations } from "@/utils/movieRecommendations";
+import SplineScene from "./SplineScene";
 
 interface MovieRecommendationsProps {
   preferences: UserPreferences;
@@ -44,12 +45,21 @@ const MovieRecommendations = ({
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.95)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
-          }}
-        />
+        {/* 3D Loading Scene */}
+        <div className="absolute inset-0 z-0">
+          <SplineScene 
+            scene="https://prod.spline.design/llK92eVgf3o6cncH/scene.splinecode"
+            className="w-full h-full opacity-40"
+            fallback={
+              <div 
+                className="w-full h-full bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.95)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
+                }}
+              />
+            }
+          />
+        </div>
         <div className="relative z-10 text-center">
           <div className="w-20 h-20 bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-purple-500/40 animate-pulse">
             <Film className="w-10 h-10 text-white" />
@@ -67,7 +77,7 @@ const MovieRecommendations = ({
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
-      {/* Background */}
+      {/* Background with floating 3D elements */}
       <div className="absolute inset-0 z-0">
         <div 
           className="w-full h-full bg-cover bg-center bg-no-repeat"
@@ -76,6 +86,17 @@ const MovieRecommendations = ({
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-purple-900/40 to-pink-900/30" />
+        
+        {/* Floating 3D Movie Reel */}
+        <div className="absolute top-10 right-10 w-32 h-32 opacity-30 pointer-events-none">
+          <SplineScene 
+            scene="https://prod.spline.design/2kRemTy4m5E9YtJ5/scene.splinecode"
+            className="w-full h-full"
+            fallback={
+              <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-spin-slow opacity-50"></div>
+            }
+          />
+        </div>
       </div>
 
       {/* Content */}

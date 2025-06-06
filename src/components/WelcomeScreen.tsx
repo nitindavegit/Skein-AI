@@ -1,6 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Play, Star, Zap, Sparkles, Heart, Film, Rocket } from "lucide-react";
+import SplineScene from "./SplineScene";
 
 interface WelcomeScreenProps {
   onStart: () => void;
@@ -9,13 +10,19 @@ interface WelcomeScreenProps {
 const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-950 via-indigo-950 to-purple-950">
-      {/* Enhanced Background */}
+      {/* 3D Background Scene */}
       <div className="absolute inset-0 z-0">
-        <div 
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
-          }}
+        <SplineScene 
+          scene="https://prod.spline.design/6Wq1Q7YGyM-iab9I/scene.splinecode"
+          className="w-full h-full opacity-60"
+          fallback={
+            <div 
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: `linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
+              }}
+            />
+          }
         />
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-purple-900/50 to-pink-900/40" />
         
@@ -47,34 +54,34 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             </p>
           </div>
           
-          {/* Enhanced Features */}
+          {/* Enhanced Features with 3D Icons */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20 max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-slate-800/90 to-purple-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-purple-500/30 hover:border-purple-400/50 transition-all duration-500 shadow-2xl shadow-purple-500/20 hover:shadow-purple-500/40 transform hover:scale-105 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-800/90 to-purple-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-purple-500/30 hover:border-purple-400/50 transition-all duration-500 shadow-2xl shadow-purple-500/20 hover:shadow-purple-500/40 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
                 <Star className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2 relative z-10">
                 ✨ Smart Curation
               </h3>
-              <p className="text-slate-300 text-lg leading-relaxed">Advanced AI analyzes your taste patterns</p>
+              <p className="text-slate-300 text-lg leading-relaxed relative z-10">Advanced AI analyzes your taste patterns</p>
             </div>
-            <div className="bg-gradient-to-br from-slate-800/90 to-pink-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-pink-500/30 hover:border-pink-400/50 transition-all duration-500 shadow-2xl shadow-pink-500/20 hover:shadow-pink-500/40 transform hover:scale-105 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-800/90 to-pink-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-pink-500/30 hover:border-pink-400/50 transition-all duration-500 shadow-2xl shadow-pink-500/20 hover:shadow-pink-500/40 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
                 <Zap className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2 relative z-10">
                 🎭 Mood Matching
               </h3>
-              <p className="text-slate-300 text-lg leading-relaxed">Find films that match how you feel</p>
+              <p className="text-slate-300 text-lg leading-relaxed relative z-10">Find films that match how you feel</p>
             </div>
-            <div className="bg-gradient-to-br from-slate-800/90 to-cyan-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-500 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:scale-105 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl">
+            <div className="bg-gradient-to-br from-slate-800/90 to-cyan-900/70 backdrop-blur-xl rounded-2xl p-8 border-2 border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-500 shadow-2xl shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
+              <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl relative z-10">
                 <Play className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2">
+              <h3 className="text-2xl font-bold text-white mb-4 flex items-center justify-center gap-2 relative z-10">
                 🏆 Premium Quality
               </h3>
-              <p className="text-slate-300 text-lg leading-relaxed">Curated exclusively for cinema lovers</p>
+              <p className="text-slate-300 text-lg leading-relaxed relative z-10">Curated exclusively for cinema lovers</p>
             </div>
           </div>
           
@@ -83,13 +90,13 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
             <Button 
               onClick={onStart}
               size="lg"
-              className="bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 hover:from-purple-500 hover:via-pink-500 hover:to-cyan-500 text-white font-bold px-16 py-6 text-xl rounded-2xl transition-all duration-500 shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 border-0 transform hover:scale-110 hover:-translate-y-1 flex items-center gap-4"
+              className="bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 hover:from-purple-500 hover:via-pink-500 hover:to-cyan-500 text-white font-bold px-16 py-6 text-xl rounded-2xl transition-all duration-500 shadow-2xl shadow-purple-500/40 hover:shadow-purple-500/60 border-0 transform hover:scale-110 hover:-translate-y-1 flex items-center gap-4 relative z-10"
             >
               <Rocket className="w-6 h-6" />
               Get Started
               <Sparkles className="w-6 h-6 animate-pulse" />
             </Button>
-            <p className="text-slate-400 text-lg flex items-center gap-2">
+            <p className="text-slate-400 text-lg flex items-center gap-2 relative z-10">
               <span>🎬</span>
               Join thousands of movie lovers
               <span>🍿</span>
