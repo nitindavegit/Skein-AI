@@ -74,7 +74,7 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
           <div 
             className="w-full h-full bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1489599117334-b0b5d7f7cd1c?q=80&w=2070&auto=format&fit=crop')`
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8)), url('/lovable-uploads/502740be-e506-4084-a21c-60757bdf84cc.png')`
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-transparent" />
