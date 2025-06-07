@@ -40,19 +40,19 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
   const isFormValid = lastMovie && preferredGenre && currentMood;
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100">
       {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <SplineScene 
           scene="https://prod.spline.design/qh2NMudMGMr8Av2s/scene.splinecode"
-          className="w-full h-full opacity-30"
+          className="w-full h-full opacity-20"
           fallback={
-            <div className="w-full h-full bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-900 relative">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(139,92,246,0.2),transparent_50%)]" />
+            <div className="w-full h-full bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 relative">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(139,92,246,0.1),transparent_50%)]" />
             </div>
           }
         />
-        <div className="absolute inset-0 bg-slate-900/60" />
+        <div className="absolute inset-0 bg-white/40" />
       </div>
 
       {/* Content */}
@@ -64,17 +64,17 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
               <div className="w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h2 className="text-4xl font-bold text-white mb-4">Tell Us About Your Taste</h2>
-              <p className="text-xl text-slate-400">Help us understand your preferences for better recommendations</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Tell Us About Your Taste</h2>
+              <p className="text-xl text-gray-600">Help us understand your preferences for better recommendations</p>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-xl">
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
                 <div className="space-y-8">
                   <div>
-                    <Label htmlFor="lastMovie" className="text-white text-lg font-medium mb-4 block flex items-center gap-3">
-                      <Film className="w-5 h-5 text-violet-400" />
+                    <Label htmlFor="lastMovie" className="text-gray-900 text-lg font-medium mb-4 block flex items-center gap-3">
+                      <Film className="w-5 h-5 text-violet-500" />
                       What's the last movie you watched?
                     </Label>
                     <Input
@@ -82,24 +82,24 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                       value={lastMovie}
                       onChange={(e) => setLastMovie(e.target.value)}
                       placeholder="e.g., Dune, The Batman, Parasite..."
-                      className="bg-slate-900/50 border-slate-600 text-white placeholder-slate-400 text-lg h-12 rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20"
+                      className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 text-lg h-12 rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="genre" className="text-white text-lg font-medium mb-4 block">
+                    <Label htmlFor="genre" className="text-gray-900 text-lg font-medium mb-4 block">
                       What genre are you in the mood for?
                     </Label>
                     <Select value={preferredGenre} onValueChange={setPreferredGenre}>
-                      <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white h-12 text-lg rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20">
+                      <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 h-12 text-lg rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20">
                         <SelectValue placeholder="Select a genre" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700 rounded-xl">
+                      <SelectContent className="bg-white border-gray-200 rounded-xl">
                         {genres.map((genre) => (
                           <SelectItem 
                             key={genre} 
                             value={genre} 
-                            className="text-white hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                            className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer"
                           >
                             {genre}
                           </SelectItem>
@@ -109,19 +109,19 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   </div>
 
                   <div>
-                    <Label htmlFor="mood" className="text-white text-lg font-medium mb-4 block">
+                    <Label htmlFor="mood" className="text-gray-900 text-lg font-medium mb-4 block">
                       How are you feeling right now?
                     </Label>
                     <Select value={currentMood} onValueChange={setCurrentMood}>
-                      <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white h-12 text-lg rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20">
+                      <SelectTrigger className="bg-gray-50 border-gray-300 text-gray-900 h-12 text-lg rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20">
                         <SelectValue placeholder="Select your current mood" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-slate-700 rounded-xl max-h-60">
+                      <SelectContent className="bg-white border-gray-200 rounded-xl max-h-60">
                         {moods.map((mood) => (
                           <SelectItem 
                             key={mood} 
                             value={mood} 
-                            className="text-white hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
+                            className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer"
                           >
                             {mood}
                           </SelectItem>
@@ -137,7 +137,7 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   type="button"
                   onClick={onBack}
                   variant="outline"
-                  className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-8 py-3 rounded-xl"
+                  className="border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900 px-8 py-3 rounded-xl"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back

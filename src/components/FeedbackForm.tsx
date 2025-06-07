@@ -28,10 +28,10 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100">
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        <div className="w-full h-full bg-gradient-to-br from-slate-900 via-indigo-900/30 to-purple-900/30" />
+        <div className="w-full h-full bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30" />
       </div>
 
       {/* Content */}
@@ -40,21 +40,21 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
           <div className="max-w-4xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-white mb-4">Share Your Thoughts</h2>
-              <p className="text-xl text-slate-400">Help us improve our recommendations</p>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Share Your Thoughts</h2>
+              <p className="text-xl text-gray-600">Help us improve our recommendations</p>
             </div>
 
             {/* Movie Card */}
-            <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 mb-10 shadow-xl">
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 mb-10 shadow-xl">
               <div className="grid md:grid-cols-4 gap-8">
-                <div className="w-full h-64 md:h-auto bg-gradient-to-br from-slate-700 to-violet-800 rounded-xl flex items-center justify-center relative overflow-hidden shadow-lg">
-                  <Film className="w-12 h-12 text-violet-300" />
+                <div className="w-full h-64 md:h-auto bg-gradient-to-br from-gray-100 to-violet-100 rounded-xl flex items-center justify-center relative overflow-hidden shadow-lg">
+                  <Film className="w-12 h-12 text-violet-400" />
                 </div>
                 
                 <div className="md:col-span-3 space-y-4">
-                  <h3 className="text-3xl font-bold text-white">{movie.title}</h3>
+                  <h3 className="text-3xl font-bold text-gray-900">{movie.title}</h3>
                   
-                  <div className="flex items-center gap-4 text-slate-400">
+                  <div className="flex items-center gap-4 text-gray-500">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
                       <span>{movie.year}</span>
@@ -65,13 +65,13 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                   
                   <div className="flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                    <span className="text-yellow-400 font-bold text-lg">{movie.rating}</span>
-                    <span className="text-slate-500">/10</span>
+                    <span className="text-yellow-500 font-bold text-lg">{movie.rating}</span>
+                    <span className="text-gray-400">/10</span>
                   </div>
                   
-                  <p className="text-slate-300 leading-relaxed">{movie.description}</p>
+                  <p className="text-gray-700 leading-relaxed">{movie.description}</p>
                   
-                  <div className="flex items-center gap-1 text-slate-500">
+                  <div className="flex items-center gap-1 text-gray-500">
                     <Clock className="w-4 h-4" />
                     <span>Directed by {movie.director}</span>
                   </div>
@@ -82,8 +82,8 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
             {/* Feedback Form */}
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Interest Question */}
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-xl">
-                <Label className="text-white text-xl font-semibold mb-6 block">
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
+                <Label className="text-gray-900 text-xl font-semibold mb-6 block">
                   Are you interested in watching this movie?
                 </Label>
                 <div className="flex gap-6 justify-center">
@@ -94,7 +94,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                     className={`px-8 py-4 rounded-xl transition-all duration-300 ${
                       interested === true
                         ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg"
-                        : "border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                        : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }`}
                   >
                     <ThumbsUp className="w-5 h-5 mr-2" />
@@ -107,7 +107,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                     className={`px-8 py-4 rounded-xl transition-all duration-300 ${
                       interested === false
                         ? "bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white shadow-lg"
-                        : "border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                        : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                     }`}
                   >
                     <ThumbsDown className="w-5 h-5 mr-2" />
@@ -117,8 +117,8 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
               </div>
 
               {/* Rating */}
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-xl">
-                <Label className="text-white text-xl font-semibold mb-6 block">
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
+                <Label className="text-gray-900 text-xl font-semibold mb-6 block">
                   Rate this recommendation (1-10)
                 </Label>
                 <div className="flex gap-3 justify-center flex-wrap">
@@ -131,7 +131,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                       className={`w-12 h-12 rounded-xl font-bold transition-all duration-300 ${
                         rating === value
                           ? "bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black shadow-lg"
-                          : "border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white"
+                          : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                       }`}
                     >
                       {value}
@@ -141,8 +141,8 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
               </div>
 
               {/* Additional Feedback */}
-              <div className="bg-slate-800/50 backdrop-blur-xl rounded-2xl p-8 border border-slate-700/50 shadow-xl">
-                <Label htmlFor="feedback" className="text-white text-xl font-semibold mb-6 block">
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
+                <Label htmlFor="feedback" className="text-gray-900 text-xl font-semibold mb-6 block">
                   Additional feedback (optional)
                 </Label>
                 <Textarea
@@ -150,7 +150,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   placeholder="Tell us what you think about this recommendation..."
-                  className="bg-slate-900/50 border-slate-600 text-white placeholder-slate-400 min-h-[120px] rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 resize-none"
+                  className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 min-h-[120px] rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 resize-none"
                 />
               </div>
 
@@ -160,7 +160,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                   type="button"
                   onClick={onBack}
                   variant="outline"
-                  className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-8 py-3 rounded-xl"
+                  className="border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900 px-8 py-3 rounded-xl"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
