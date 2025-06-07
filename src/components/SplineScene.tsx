@@ -1,5 +1,5 @@
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { Application } from '@splinetool/runtime';
 
 interface SplineSceneProps {
@@ -9,6 +9,20 @@ interface SplineSceneProps {
 }
 
 const SplineScene = ({ scene, className = "", fallback }: SplineSceneProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    if (canvasRef.current) {
+      const app = new Application(canvasRef.current);
+      app.load(scene);
+
+      return () => {
+        // Cleanup if needed
+        app.dispose?.();
+      };
+    }
+  }, [scene]);
+
   const defaultFallback = (
     <div className={`flex items-center justify-center bg-gradient-to-br from-slate-800 to-purple-900 ${className}`}>
       <div className="text-center">
@@ -21,7 +35,7 @@ const SplineScene = ({ scene, className = "", fallback }: SplineSceneProps) => {
   return (
     <Suspense fallback={fallback || defaultFallback}>
       <div className={className}>
-        <spline-viewer url={scene}></spline-viewer>
+        <canvas ref={canvasRef} className="w-full h-full" />
       </div>
     </Suspense>
   );
