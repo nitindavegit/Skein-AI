@@ -1,7 +1,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Play, ChevronRight, Star, Users, Award, Zap } from "lucide-react";
-import SplineScene from "./SplineScene";
 import Logo from "./Logo";
 
 interface WelcomeScreenProps {
@@ -23,19 +22,6 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         <div className="absolute bottom-20 right-10 w-1 h-1 bg-blue-300 rounded-full animate-float opacity-70" style={{animationDelay: '1s'}}></div>
       </div>
 
-      {/* 3D Scene Background */}
-      <div className="absolute inset-0 opacity-30">
-        <SplineScene 
-          scene="https://prod.spline.design/6Wq1Q7YGyM-iab9I/scene.splinecode"
-          className="w-full h-full"
-          fallback={
-            <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.2),transparent_50%)]" />
-            </div>
-          }
-        />
-      </div>
-
       {/* Navigation */}
       <nav className="relative z-20 p-6">
         <div className="container mx-auto flex justify-between items-center">
@@ -48,10 +34,10 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
         </div>
       </nav>
 
-      {/* Main Content */}
+      {/* Main Content - Centered Full Width */}
       <div className="relative z-10 flex items-center min-h-[calc(100vh-100px)]">
         <div className="container mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="max-w-4xl mx-auto text-center space-y-8">
             {/* Hero Content */}
             <div className="space-y-8">
               <div className="space-y-6">
@@ -66,13 +52,13 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
                   <span className="block text-gray-100">Perfection</span>
                 </h1>
                 
-                <p className="text-xl text-gray-300 max-w-lg leading-relaxed">
+                <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed">
                   Experience personalized movie recommendations powered by cutting-edge AI. 
                   Find films that resonate with your unique taste and mood.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
                   onClick={onStart}
                   size="lg"
@@ -93,7 +79,7 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
               </div>
 
               {/* Stats */}
-              <div className="flex items-center gap-8 pt-6">
+              <div className="flex items-center justify-center gap-8 pt-6">
                 <div className="flex items-center gap-2">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map((i) => (
@@ -109,30 +95,6 @@ const WelcomeScreen = ({ onStart }: WelcomeScreenProps) => {
                   ))}
                   <span className="text-gray-400 text-sm ml-2">4.9 rating</span>
                 </div>
-              </div>
-            </div>
-
-            {/* 3D Preview */}
-            <div className="hidden lg:block">
-              <div className="relative">
-                <div className="w-full h-96 glass-effect rounded-2xl overflow-hidden shadow-2xl">
-                  <SplineScene 
-                    scene="https://prod.spline.design/llK92eVgf3o6cncH/scene.splinecode"
-                    className="w-full h-full"
-                    fallback={
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-800">
-                        <div className="text-center space-y-4">
-                          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto animate-pulse" />
-                          <p className="text-gray-400">Loading 3D Experience...</p>
-                        </div>
-                      </div>
-                    }
-                  />
-                </div>
-                
-                {/* Floating elements */}
-                <div className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-float opacity-80 shadow-xl" />
-                <div className="absolute -bottom-4 -left-4 w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full animate-float opacity-60 shadow-lg" style={{animationDelay: '2s'}} />
               </div>
             </div>
           </div>
