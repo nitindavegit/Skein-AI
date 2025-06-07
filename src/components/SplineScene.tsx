@@ -1,6 +1,6 @@
 
 import { Suspense } from 'react';
-import { Spline } from '@splinetool/runtime';
+import { Application } from '@splinetool/runtime';
 
 interface SplineSceneProps {
   scene: string;
@@ -21,7 +21,7 @@ const SplineScene = ({ scene, className = "", fallback }: SplineSceneProps) => {
   return (
     <Suspense fallback={fallback || defaultFallback}>
       <div className={className}>
-        <Spline scene={scene} />
+        <spline-viewer url={scene}></spline-viewer>
       </div>
     </Suspense>
   );
