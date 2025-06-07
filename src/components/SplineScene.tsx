@@ -1,6 +1,6 @@
 
 import { Suspense } from 'react';
-import Spline from '@splinetool/runtime';
+import { Spline } from '@splinetool/runtime';
 
 interface SplineSceneProps {
   scene: string;
