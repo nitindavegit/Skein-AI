@@ -1,5 +1,7 @@
 
 import { useState } from "react";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import UserMenu from "@/components/UserMenu";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import UserPreferencesForm from "@/components/UserPreferencesForm";
 import MovieRecommendations from "@/components/MovieRecommendations";
@@ -55,36 +57,43 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {currentStep === 'welcome' && (
-        <WelcomeScreen onStart={handleStartRecommendations} />
-      )}
-      
-      {currentStep === 'preferences' && (
-        <UserPreferencesForm 
-          onSubmit={handlePreferencesSubmit}
-          onBack={() => setCurrentStep('welcome')}
-        />
-      )}
-      
-      {currentStep === 'recommendations' && userPreferences && (
-        <MovieRecommendations 
-          preferences={userPreferences}
-          onMovieSelect={handleMovieSelect}
-          onBack={() => setCurrentStep('preferences')}
-          recommendations={recommendations}
-          setRecommendations={setRecommendations}
-        />
-      )}
-      
-      {currentStep === 'feedback' && selectedMovie && (
-        <FeedbackForm 
-          movie={selectedMovie}
-          onSubmit={handleFeedbackSubmit}
-          onBack={handleBackToRecommendations}
-        />
-      )}
-    </div>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        {/* User menu in top right corner */}
+        <div className="absolute top-4 right-4 z-10">
+          <UserMenu />
+        </div>
+        
+        {currentStep === 'welcome' && (
+          <WelcomeScreen onStart={handleStartRecommendations} />
+        )}
+        
+        {currentStep === 'preferences' && (
+          <UserPreferencesForm 
+            onSubmit={handlePreferencesSubmit}
+            onBack={() => setCurrentStep('welcome')}
+          />
+        )}
+        
+        {currentStep === 'recommendations' && userPreferences && (
+          <MovieRecommendations 
+            preferences={userPreferences}
+            onMovieSelect={handleMovieSelect}
+            onBack={() => setCurrentStep('preferences')}
+            recommendations={recommendations}
+            setRecommendations={setRecommendations}
+          />
+        )}
+        
+        {currentStep === 'feedback' && selectedMovie && (
+          <FeedbackForm 
+            movie={selectedMovie}
+            onSubmit={handleFeedbackSubmit}
+            onBack={handleBackToRecommendations}
+          />
+        )}
+      </div>
+    </ProtectedRoute>
   );
 };
 
