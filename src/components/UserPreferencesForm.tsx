@@ -5,8 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { UserPreferences } from "@/pages/Index";
-import { ArrowLeft, Film, ChevronRight, Sparkles, Heart } from "lucide-react";
-import SplineScene from "./SplineScene";
+import { ArrowLeft, Film, ChevronRight, Heart, Sparkles } from "lucide-react";
 import Logo from "./Logo";
 
 interface UserPreferencesFormProps {
@@ -41,59 +40,37 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
   const isFormValid = lastMovie && preferredGenre && currentMood;
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Animated Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.1),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(139,92,246,0.05)_50%,transparent_70%)] animate-pulse" />
-        
-        {/* Floating elements */}
-        <div className="absolute top-20 left-10 w-2 h-2 bg-blue-400 rounded-full animate-float opacity-60"></div>
-        <div className="absolute top-40 right-20 w-1 h-1 bg-purple-400 rounded-full animate-float opacity-80" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-40 left-20 w-3 h-3 bg-pink-400 rounded-full animate-float opacity-40" style={{animationDelay: '4s'}}></div>
-      </div>
-
-      {/* 3D Background Scene */}
-      <div className="absolute inset-0 opacity-20">
-        <SplineScene 
-          scene="https://prod.spline.design/qh2NMudMGMr8Av2s/scene.splinecode"
-          className="w-full h-full"
-          fallback={
-            <div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900" />
-          }
-        />
-      </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Navigation */}
-      <nav className="relative z-20 p-6">
-        <div className="container mx-auto">
+      <nav className="border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4">
           <Logo size="md" />
         </div>
       </nav>
 
       {/* Content */}
-      <div className="relative z-10 flex items-center min-h-[calc(100vh-100px)]">
-        <div className="container mx-auto px-6 lg:px-8">
+      <div className="py-20">
+        <div className="container mx-auto px-6">
           <div className="max-w-2xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl hover-glow">
-                <Sparkles className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Sparkles className="w-8 h-8 text-blue-600" />
               </div>
-              <h2 className="text-4xl lg:text-5xl font-serif font-bold text-white mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 Tell Us About Your
-                <span className="block gradient-text">Cinematic Taste</span>
+                <span className="block gradient-text">Movie Preferences</span>
               </h2>
-              <p className="text-xl text-gray-300">Help our AI understand your unique preferences</p>
+              <p className="text-lg text-gray-600">Help our AI understand your unique taste in cinema</p>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} className="space-y-8">
-              <div className="glass-effect rounded-2xl p-8 shadow-2xl">
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
                 <div className="space-y-8">
                   <div className="space-y-4">
-                    <Label htmlFor="lastMovie" className="text-gray-200 text-lg font-medium flex items-center gap-3">
-                      <Film className="w-5 h-5 text-blue-400" />
+                    <Label htmlFor="lastMovie" className="text-gray-900 text-base font-medium flex items-center gap-3">
+                      <Film className="w-5 h-5 text-blue-500" />
                       What's the last movie that captivated you?
                     </Label>
                     <Input
@@ -101,26 +78,22 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                       value={lastMovie}
                       onChange={(e) => setLastMovie(e.target.value)}
                       placeholder="e.g., Dune, The Batman, Parasite, Inception..."
-                      className="bg-slate-800/50 border-gray-600 text-gray-100 placeholder-gray-400 text-lg h-14 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all duration-300"
+                      className="h-12 text-base border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 rounded-lg"
                     />
                   </div>
 
                   <div className="space-y-4">
-                    <Label htmlFor="genre" className="text-gray-200 text-lg font-medium flex items-center gap-3">
-                      <Heart className="w-5 h-5 text-purple-400" />
-                      What genre speaks to your soul?
+                    <Label htmlFor="genre" className="text-gray-900 text-base font-medium flex items-center gap-3">
+                      <Heart className="w-5 h-5 text-purple-500" />
+                      What's your preferred genre?
                     </Label>
                     <Select value={preferredGenre} onValueChange={setPreferredGenre}>
-                      <SelectTrigger className="bg-slate-800/50 border-gray-600 text-gray-100 h-14 text-lg rounded-xl focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300">
-                        <SelectValue placeholder="Choose your preferred genre" />
+                      <SelectTrigger className="h-12 text-base border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 rounded-lg">
+                        <SelectValue placeholder="Choose your favorite genre" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-gray-600 rounded-xl">
+                      <SelectContent className="rounded-lg">
                         {genres.map((genre) => (
-                          <SelectItem 
-                            key={genre} 
-                            value={genre} 
-                            className="text-gray-100 hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
-                          >
+                          <SelectItem key={genre} value={genre}>
                             {genre}
                           </SelectItem>
                         ))}
@@ -129,21 +102,17 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   </div>
 
                   <div className="space-y-4">
-                    <Label htmlFor="mood" className="text-gray-200 text-lg font-medium flex items-center gap-3">
-                      <Sparkles className="w-5 h-5 text-pink-400" />
-                      What's your current vibe?
+                    <Label htmlFor="mood" className="text-gray-900 text-base font-medium flex items-center gap-3">
+                      <Sparkles className="w-5 h-5 text-pink-500" />
+                      What's your current mood?
                     </Label>
                     <Select value={currentMood} onValueChange={setCurrentMood}>
-                      <SelectTrigger className="bg-slate-800/50 border-gray-600 text-gray-100 h-14 text-lg rounded-xl focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all duration-300">
-                        <SelectValue placeholder="Tell us how you're feeling" />
+                      <SelectTrigger className="h-12 text-base border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 rounded-lg">
+                        <SelectValue placeholder="How are you feeling today?" />
                       </SelectTrigger>
-                      <SelectContent className="bg-slate-800 border-gray-600 rounded-xl max-h-60">
+                      <SelectContent className="rounded-lg max-h-60">
                         {moods.map((mood) => (
-                          <SelectItem 
-                            key={mood} 
-                            value={mood} 
-                            className="text-gray-100 hover:bg-slate-700 focus:bg-slate-700 cursor-pointer"
-                          >
+                          <SelectItem key={mood} value={mood}>
                             {mood}
                           </SelectItem>
                         ))}
@@ -158,7 +127,7 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                   type="button"
                   onClick={onBack}
                   variant="outline"
-                  className="border-gray-600 bg-gray-800/50 text-gray-200 hover:bg-gray-700/50 hover:text-white px-8 py-3 rounded-xl transition-all duration-300"
+                  className="h-12 px-6 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
@@ -166,9 +135,9 @@ const UserPreferencesForm = ({ onSubmit, onBack }: UserPreferencesFormProps) => 
                 <Button 
                   type="submit"
                   disabled={!isFormValid}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold px-12 py-3 rounded-xl disabled:opacity-50 shadow-xl hover:shadow-2xl transition-all duration-300 hover-glow"
+                  className="h-12 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg disabled:opacity-50 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  Discover My Movies
+                  Get Recommendations
                   <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>

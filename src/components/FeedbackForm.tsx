@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MovieRecommendation } from "@/pages/Index";
 import { Film, Star, ThumbsUp, ThumbsDown, ArrowLeft, Calendar, Clock } from "lucide-react";
+import Logo from "./Logo";
 
 interface FeedbackFormProps {
   movie: MovieRecommendation;
@@ -28,31 +29,33 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-gray-50 to-gray-100">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="w-full h-full bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30" />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+      {/* Navigation */}
+      <nav className="border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4">
+          <Logo size="md" />
+        </div>
+      </nav>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center py-12">
-        <div className="container mx-auto px-6 lg:px-8">
+      <div className="py-20">
+        <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
             {/* Header */}
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Share Your Thoughts</h2>
-              <p className="text-xl text-gray-600">Help us improve our recommendations</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Share Your Thoughts</h2>
+              <p className="text-lg text-gray-600">Your feedback helps us improve our recommendations</p>
             </div>
 
             {/* Movie Card */}
-            <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 mb-10 shadow-xl">
+            <div className="bg-white rounded-2xl p-8 border border-gray-100 mb-10 shadow-sm">
               <div className="grid md:grid-cols-4 gap-8">
-                <div className="w-full h-64 md:h-auto bg-gradient-to-br from-gray-100 to-violet-100 rounded-xl flex items-center justify-center relative overflow-hidden shadow-lg">
-                  <Film className="w-12 h-12 text-violet-400" />
+                <div className="w-full h-64 md:h-auto bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl flex items-center justify-center relative overflow-hidden">
+                  <Film className="w-12 h-12 text-gray-400" />
                 </div>
                 
                 <div className="md:col-span-3 space-y-4">
-                  <h3 className="text-3xl font-bold text-gray-900">{movie.title}</h3>
+                  <h3 className="text-2xl font-bold text-gray-900">{movie.title}</h3>
                   
                   <div className="flex items-center gap-4 text-gray-500">
                     <div className="flex items-center gap-1">
@@ -65,7 +68,7 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                   
                   <div className="flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                    <span className="text-yellow-500 font-bold text-lg">{movie.rating}</span>
+                    <span className="text-yellow-600 font-bold text-lg">{movie.rating}</span>
                     <span className="text-gray-400">/10</span>
                   </div>
                   
@@ -82,43 +85,43 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
             {/* Feedback Form */}
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Interest Question */}
-              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
-                <Label className="text-gray-900 text-xl font-semibold mb-6 block">
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+                <Label className="text-gray-900 text-lg font-semibold mb-6 block">
                   Are you interested in watching this movie?
                 </Label>
-                <div className="flex gap-6 justify-center">
+                <div className="flex gap-4 justify-center">
                   <Button
                     type="button"
                     onClick={() => setInterested(true)}
                     variant={interested === true ? "default" : "outline"}
-                    className={`px-8 py-4 rounded-xl transition-all duration-300 ${
+                    className={`h-12 px-6 rounded-lg font-semibold transition-all duration-300 ${
                       interested === true
-                        ? "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white shadow-lg"
-                        : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-green-600 hover:bg-green-700 text-white"
+                        : "border-gray-300 text-gray-700 hover:bg-gray-50"
                     }`}
                   >
-                    <ThumbsUp className="w-5 h-5 mr-2" />
+                    <ThumbsUp className="w-4 h-4 mr-2" />
                     Yes, I'm interested!
                   </Button>
                   <Button
                     type="button"
                     onClick={() => setInterested(false)}
                     variant={interested === false ? "default" : "outline"}
-                    className={`px-8 py-4 rounded-xl transition-all duration-300 ${
+                    className={`h-12 px-6 rounded-lg font-semibold transition-all duration-300 ${
                       interested === false
-                        ? "bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white shadow-lg"
-                        : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        ? "bg-red-600 hover:bg-red-700 text-white"
+                        : "border-gray-300 text-gray-700 hover:bg-gray-50"
                     }`}
                   >
-                    <ThumbsDown className="w-5 h-5 mr-2" />
+                    <ThumbsDown className="w-4 h-4 mr-2" />
                     Not for me
                   </Button>
                 </div>
               </div>
 
               {/* Rating */}
-              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
-                <Label className="text-gray-900 text-xl font-semibold mb-6 block">
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+                <Label className="text-gray-900 text-lg font-semibold mb-6 block">
                   Rate this recommendation (1-10)
                 </Label>
                 <div className="flex gap-3 justify-center flex-wrap">
@@ -128,10 +131,10 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                       type="button"
                       onClick={() => handleRatingClick(value)}
                       variant={rating === value ? "default" : "outline"}
-                      className={`w-12 h-12 rounded-xl font-bold transition-all duration-300 ${
+                      className={`w-12 h-12 rounded-lg font-bold transition-all duration-300 ${
                         rating === value
-                          ? "bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black shadow-lg"
-                          : "border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-yellow-500 hover:bg-yellow-600 text-white"
+                          : "border-gray-300 text-gray-700 hover:bg-gray-50"
                       }`}
                     >
                       {value}
@@ -141,8 +144,8 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
               </div>
 
               {/* Additional Feedback */}
-              <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 border border-gray-200 shadow-xl">
-                <Label htmlFor="feedback" className="text-gray-900 text-xl font-semibold mb-6 block">
+              <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
+                <Label htmlFor="feedback" className="text-gray-900 text-lg font-semibold mb-6 block">
                   Additional feedback (optional)
                 </Label>
                 <Textarea
@@ -150,24 +153,24 @@ const FeedbackForm = ({ movie, onSubmit, onBack }: FeedbackFormProps) => {
                   value={feedback}
                   onChange={(e) => setFeedback(e.target.value)}
                   placeholder="Tell us what you think about this recommendation..."
-                  className="bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 min-h-[120px] rounded-xl focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 resize-none"
+                  className="border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 min-h-[120px] rounded-lg resize-none"
                 />
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-6 justify-center">
+              <div className="flex gap-4 justify-center">
                 <Button 
                   type="button"
                   onClick={onBack}
                   variant="outline"
-                  className="border-gray-300 text-gray-600 hover:bg-gray-50 hover:text-gray-900 px-8 py-3 rounded-xl"
+                  className="h-12 px-6 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
                 </Button>
                 <Button 
                   type="submit"
-                  className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-semibold px-12 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                  className="h-12 px-8 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 >
                   Submit Feedback
                 </Button>

@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { UserPreferences, MovieRecommendation } from "@/pages/Index";
-import { Film, Star, ArrowLeft, Play, Clock, Calendar, Zap } from "lucide-react";
+import { Film, Star, ArrowLeft, Play, Clock, Calendar, CheckCircle } from "lucide-react";
 import { generateMovieRecommendations } from "@/utils/movieRecommendations";
-import SplineScene from "./SplineScene";
 import Logo from "./Logo";
 
 interface MovieRecommendationsProps {
@@ -45,29 +44,20 @@ const MovieRecommendations = ({
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
-          <SplineScene 
-            scene="https://prod.spline.design/llK92eVgf3o6cncH/scene.splinecode"
-            className="w-full h-full opacity-20"
-            fallback={<div className="w-full h-full bg-gradient-to-br from-slate-800 to-slate-900" />}
-          />
-        </div>
-        <div className="relative z-10 text-center">
-          <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-2xl animate-pulse hover-glow">
-            <Film className="w-10 h-10 text-white" />
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto px-6">
+          <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-pulse">
+            <Film className="w-8 h-8 text-blue-600" />
           </div>
-          <h2 className="text-4xl font-serif font-bold text-white mb-4">
-            Crafting Your Perfect
-            <span className="block gradient-text">Movie Collection</span>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Analyzing Your Preferences
           </h2>
-          <p className="text-xl text-gray-300">Our AI is analyzing your unique taste...</p>
-          <div className="flex justify-center mt-8">
+          <p className="text-gray-600 mb-8">Our AI is crafting the perfect movie recommendations just for you...</p>
+          <div className="flex justify-center">
             <div className="flex space-x-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
-              <div className="w-3 h-3 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-              <div className="w-3 h-3 bg-pink-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+              <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
             </div>
           </div>
         </div>
@@ -76,56 +66,41 @@ const MovieRecommendations = ({
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(59,130,246,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_30%,rgba(139,92,246,0.03)_50%,transparent_70%)]" />
-        
-        {/* Floating particles */}
-        <div className="absolute top-20 right-20 w-32 h-32 opacity-10">
-          <SplineScene 
-            scene="https://prod.spline.design/2kRemTy4m5E9YtJ5/scene.splinecode"
-            className="w-full h-full"
-            fallback={<div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 rounded-full animate-float opacity-20" />}
-          />
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Navigation */}
-      <nav className="relative z-20 p-6">
-        <div className="container mx-auto">
+      <nav className="border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+        <div className="container mx-auto px-6 py-4">
           <Logo size="md" />
         </div>
       </nav>
 
       {/* Content */}
-      <div className="relative z-10 py-12">
-        <div className="container mx-auto px-6 lg:px-8">
+      <div className="py-20">
+        <div className="container mx-auto px-6">
           {/* Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-2 text-green-400 text-sm font-medium mb-6">
-              <Zap className="w-4 h-4" />
-              AI Analysis Complete
+            <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 text-sm font-medium px-4 py-2 rounded-full mb-6">
+              <CheckCircle className="w-4 h-4" />
+              Recommendations Ready
             </div>
             
-            <h2 className="text-4xl lg:text-6xl font-serif font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Your Personalized
-              <span className="block gradient-text">Movie Universe</span>
+              <span className="block gradient-text">Movie Collection</span>
             </h2>
             
-            <div className="glass-effect rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto">
-              <p className="text-lg text-gray-300 flex items-center justify-center gap-4 flex-wrap">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 max-w-4xl mx-auto">
+              <p className="text-gray-600 flex items-center justify-center gap-4 flex-wrap">
                 Based on your love for 
-                <span className="text-blue-400 font-semibold bg-blue-500/10 px-3 py-1 rounded-lg border border-blue-500/20">
+                <span className="text-blue-600 font-semibold bg-blue-50 px-3 py-1 rounded-lg">
                   {preferences.lastMovie}
                 </span>
                 your preference for 
-                <span className="text-purple-400 font-semibold bg-purple-500/10 px-3 py-1 rounded-lg border border-purple-500/20">
+                <span className="text-purple-600 font-semibold bg-purple-50 px-3 py-1 rounded-lg">
                   {preferences.preferredGenre}
                 </span>
                 and your 
-                <span className="text-pink-400 font-semibold bg-pink-500/10 px-3 py-1 rounded-lg border border-pink-500/20">
+                <span className="text-pink-600 font-semibold bg-pink-50 px-3 py-1 rounded-lg">
                   {preferences.currentMood}
                 </span>
                 mood
@@ -138,37 +113,34 @@ const MovieRecommendations = ({
             {recommendations.map((movie, index) => (
               <Card 
                 key={movie.id} 
-                className="glass-effect border-gray-700 hover:border-blue-500/50 transition-all duration-500 cursor-pointer group shadow-xl overflow-hidden rounded-2xl hover:shadow-2xl transform hover:scale-105 hover-glow"
+                className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 cursor-pointer group rounded-2xl overflow-hidden"
                 onClick={() => onMovieSelect(movie)}
                 style={{animationDelay: `${index * 0.1}s`}}
               >
                 <CardContent className="p-0">
-                  <div className="aspect-[2/3] bg-gradient-to-br from-slate-700 to-slate-800 rounded-t-2xl flex items-center justify-center relative overflow-hidden">
-                    <Film className="w-12 h-12 text-blue-400 group-hover:scale-125 transition-transform duration-500" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                      <Play className="w-12 h-12 text-white transform scale-0 group-hover:scale-100 transition-transform duration-500 bg-white/20 rounded-full p-3 backdrop-blur-sm" />
+                  <div className="aspect-[2/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
+                    <Film className="w-12 h-12 text-gray-400 group-hover:scale-125 transition-transform duration-300" />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Play className="w-12 h-12 text-white transform scale-0 group-hover:scale-100 transition-transform duration-300 bg-white/20 rounded-full p-3 backdrop-blur-sm" />
                     </div>
-                    
-                    {/* Gradient overlay */}
-                    <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   
                   <div className="p-6 space-y-4">
-                    <h3 className="text-white font-bold text-lg line-clamp-2 group-hover:text-blue-400 transition-colors duration-300">{movie.title}</h3>
+                    <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors duration-300">{movie.title}</h3>
                     
-                    <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <div className="flex items-center gap-2 text-gray-500 text-sm">
                       <Calendar className="w-4 h-4" />
                       <span>{movie.year}</span>
                       <span>•</span>
-                      <span className="text-purple-400">{movie.genre}</span>
+                      <span className="text-purple-600">{movie.genre}</span>
                     </div>
                     
                     <div className="flex items-center gap-2">
                       <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="text-yellow-400 font-semibold">{movie.rating}</span>
-                      <span className="text-gray-500">/10</span>
+                      <span className="text-yellow-600 font-semibold">{movie.rating}</span>
+                      <span className="text-gray-400">/10</span>
                       <div className="ml-auto">
-                        <div className="w-12 h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div className="w-12 h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div 
                             className="h-full bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full transition-all duration-1000"
                             style={{width: `${(movie.rating / 10) * 100}%`}}
@@ -177,9 +149,9 @@ const MovieRecommendations = ({
                       </div>
                     </div>
                     
-                    <p className="text-gray-400 text-sm line-clamp-3 leading-relaxed">{movie.description}</p>
+                    <p className="text-gray-600 text-sm line-clamp-3 leading-relaxed">{movie.description}</p>
                     
-                    <div className="flex items-center gap-1 text-gray-500 text-sm pt-2 border-t border-gray-700">
+                    <div className="flex items-center gap-1 text-gray-500 text-sm pt-2 border-t border-gray-100">
                       <Clock className="w-3 h-3" />
                       <span>Directed by {movie.director}</span>
                     </div>
@@ -194,10 +166,10 @@ const MovieRecommendations = ({
             <Button 
               onClick={onBack}
               variant="outline"
-              className="border-gray-600 bg-gray-800/50 text-gray-200 hover:bg-gray-700/50 hover:text-white px-8 py-3 rounded-xl transition-all duration-300"
+              className="h-12 px-6 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Refine Preferences
+              Update Preferences
             </Button>
           </div>
         </div>
