@@ -12,11 +12,6 @@ interface TMDBMovie {
   poster_path: string;
 }
 
-interface TMDBGenre {
-  id: number;
-  name: string;
-}
-
 interface TMDBCredits {
   cast: Array<{
     name: string;
@@ -97,7 +92,6 @@ class MovieService {
     try {
       const { data: { TMDB_API_KEY } } = await supabase.functions.invoke('get-secrets');
       
-      // Search for the movie
       const searchResponse = await fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(movieTitle)}&language=en-US`
       );
@@ -191,7 +185,7 @@ class MovieService {
         poster: movie.poster,
         director: movie.director,
         cast_members: movie.cast,
-        recommendation_score: Math.random() * 100 // Placeholder scoring
+        recommendation_score: Math.random() * 100
       }));
 
       const { error } = await supabase
@@ -206,19 +200,13 @@ class MovieService {
 
   async generateRecommendations(preferences: UserPreferences): Promise<MovieRecommendation[]> {
     try {
-      // Save user preferences first
       const preferencesId = await this.saveUserPreferences(preferences);
       
-      // Get AI suggestions
       const aiSuggestions = await this.getOpenAIRecommendations(preferences);
-      
-      // Get genre-based discoveries from TMDB
       const genreMovies = await this.discoverMoviesByGenre(preferences);
       
-      // Combine AI suggestions with TMDB data
       const recommendations: MovieRecommendation[] = [];
       
-      // Process AI suggestions
       for (const suggestion of aiSuggestions.slice(0, 8)) {
         const tmdbMovie = await this.getTMDBMovieDetails(suggestion);
         if (tmdbMovie) {
@@ -240,7 +228,6 @@ class MovieService {
         }
       }
       
-      // Add genre-based recommendations if we don't have enough
       for (const movie of genreMovies.slice(0, 10 - recommendations.length)) {
         if (!recommendations.find(r => r.id === movie.id.toString())) {
           const credits = await this.getTMDBMovieCredits(movie.id);
@@ -261,7 +248,6 @@ class MovieService {
         }
       }
       
-      // Save recommendations to database
       if (preferencesId) {
         await this.saveMovieRecommendations(preferencesId, recommendations);
       }
@@ -296,7 +282,7 @@ class MovieService {
     }
   }
 
-  async saveFeedback(movieRecommendationId: string, feedbackData: {
+  async saveFeedback(movieId: string, feedbackData: {
     rating?: number;
     liked?: boolean;
     feedback_text?: string;
@@ -306,11 +292,24 @@ class MovieService {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) throw new Error('User not authenticated');
 
+      // Find the movie recommendation record
+      const { data: movieRec, error: findError } = await supabase
+        .from('movie_recommendations')
+        .select('id')
+        .eq('movie_id', movieId)
+        .eq('user_id', user.id)
+        .single();
+
+      if (findError || !movieRec) {
+        console.error('Movie recommendation not found:', findError);
+        return false;
+      }
+
       const { error } = await supabase
         .from('user_feedback')
         .insert({
           user_id: user.id,
-          movie_recommendation_id: movieRecommendationId,
+          movie_recommendation_id: movieRec.id,
           ...feedbackData
         });
 
