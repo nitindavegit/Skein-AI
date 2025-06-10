@@ -1,271 +1,153 @@
+
 import { UserPreferences, MovieRecommendation } from "@/pages/Index";
+import { movieService } from "@/services/movieService";
 
-// API Configuration - Add your keys here
-const OPENAI_API_KEY = "your-openai-api-key-here";
-const OPENAI_URL = "https://api.openai.com/v1/chat/completions";
-const TMDB_API_KEY = "your-tmdb-api-key-here";
-const TMDB_READ_ACCESS_TOKEN = "your-tmdb-read-access-token-here";
-
-// This is a sophisticated recommendation engine that analyzes user preferences
-// In a real application, this would connect to TMDB API and use AI for recommendations
 export const generateMovieRecommendations = async (preferences: UserPreferences): Promise<MovieRecommendation[]> => {
-  // Simulate API delay
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  console.log("Generating recommendations with preferences:", preferences);
+  
+  try {
+    // Use the new movie service
+    const recommendations = await movieService.generateRecommendations(preferences);
+    
+    if (recommendations.length > 0) {
+      console.log("Generated recommendations:", recommendations);
+      return recommendations;
+    }
+    
+    // Fallback to curated database if API fails
+    return getFallbackRecommendations(preferences);
+  } catch (error) {
+    console.error("Error generating recommendations:", error);
+    return getFallbackRecommendations(preferences);
+  }
+};
 
-  // TODO: Replace with actual OpenAI API call
-  // const openAIResponse = await fetch(OPENAI_URL, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Authorization': `Bearer ${OPENAI_API_KEY}`,
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     model: 'gpt-4',
-  //     messages: [
-  //       {
-  //         role: 'system',
-  //         content: 'You are a movie recommendation expert. Analyze user preferences and suggest movies.'
-  //       },
-  //       {
-  //         role: 'user',
-  //         content: `Based on last movie: ${preferences.lastMovie}, preferred genre: ${preferences.preferredGenre}, and mood: ${preferences.currentMood}, suggest 10 movies.`
-  //       }
-  //     ]
-  //   })
-  // });
-
-  // TODO: Replace with actual TMDB API calls
-  // const tmdbResponse = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_genres=${genreId}`);
-  // Or using Read Access Token:
-  // const tmdbResponse = await fetch(`https://api.themoviedb.org/3/discover/movie?with_genres=${genreId}`, {
-  //   headers: {
-  //     'Authorization': `Bearer ${TMDB_READ_ACCESS_TOKEN}`,
-  //     'Content-Type': 'application/json'
-  //   }
-  // });
-
-  // Curated movie database with detailed information
-  const movieDatabase: MovieRecommendation[] = [
+// Fallback recommendations if APIs fail
+const getFallbackRecommendations = (preferences: UserPreferences): MovieRecommendation[] => {
+  const fallbackMovies: MovieRecommendation[] = [
     {
-      id: "1",
-      title: "Blade Runner 2049",
-      genre: "Science Fiction",
-      year: 2017,
-      rating: 8.0,
-      description: "A young blade runner's discovery of a long-buried secret leads him to track down former blade runner Rick Deckard.",
-      poster: "/blade-runner-2049.jpg",
-      director: "Denis Villeneuve",
-      cast: ["Ryan Gosling", "Harrison Ford", "Ana de Armas"]
-    },
-    {
-      id: "2",
-      title: "The Grand Budapest Hotel",
-      genre: "Comedy",
-      year: 2014,
-      rating: 8.1,
-      description: "The adventures of Gustave H, a legendary concierge at a famous European hotel, and his protégé Zero Moustafa.",
-      poster: "/grand-budapest.jpg",
-      director: "Wes Anderson",
-      cast: ["Ralph Fiennes", "F. Murray Abraham", "Mathieu Amalric"]
-    },
-    {
-      id: "3",
-      title: "Mad Max: Fury Road",
-      genre: "Action",
-      year: 2015,
-      rating: 8.1,
-      description: "In a post-apocalyptic wasteland, Max teams up with a mysterious woman to escape a cult leader and his army.",
-      poster: "/mad-max.jpg",
-      director: "George Miller",
-      cast: ["Tom Hardy", "Charlize Theron", "Nicholas Hoult"]
-    },
-    {
-      id: "4",
-      title: "Her",
-      genre: "Romance",
-      year: 2013,
-      rating: 8.0,
-      description: "A sensitive writer develops an unlikely relationship with an operating system designed to meet his every need.",
-      poster: "/her.jpg",
-      director: "Spike Jonze",
-      cast: ["Joaquin Phoenix", "Scarlett Johansson", "Amy Adams"]
-    },
-    {
-      id: "5",
-      title: "Get Out",
-      genre: "Horror",
-      year: 2017,
-      rating: 7.8,
-      description: "A young African-American visits his white girlfriend's parents for the weekend, where his simmering uneasiness becomes a nightmare.",
-      poster: "/get-out.jpg",
-      director: "Jordan Peele",
-      cast: ["Daniel Kaluuya", "Allison Williams", "Bradley Whitford"]
-    },
-    {
-      id: "6",
-      title: "Moonlight",
+      id: "fallback-1",
+      title: "The Shawshank Redemption",
       genre: "Drama",
-      year: 2016,
-      rating: 7.4,
-      description: "A chronicle of the childhood, adolescence and burgeoning adulthood of a young, African-American, gay man growing up in Miami.",
-      poster: "/moonlight.jpg",
-      director: "Barry Jenkins",
-      cast: ["Mahershala Ali", "Naomie Harris", "Trevante Rhodes"]
+      year: 1994,
+      rating: 9.3,
+      description: "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      poster: "",
+      director: "Frank Darabont",
+      cast: ["Tim Robbins", "Morgan Freeman", "Bob Gunton"]
     },
     {
-      id: "7",
-      title: "Spider-Man: Into the Spider-Verse",
-      genre: "Animation",
-      year: 2018,
-      rating: 8.4,
-      description: "Teen Miles Morales becomes Spider-Man and must save the city from Kingpin with the help of other Spider-People from parallel dimensions.",
-      poster: "/spider-verse.jpg",
-      director: "Bob Persichetti",
-      cast: ["Shameik Moore", "Jake Johnson", "Hailee Steinfeld"]
-    },
-    {
-      id: "8",
-      title: "Knives Out",
-      genre: "Mystery",
-      year: 2019,
-      rating: 7.9,
-      description: "A detective investigates the death of a patriarch of an eccentric, combative family.",
-      poster: "/knives-out.jpg",
-      director: "Rian Johnson",
-      cast: ["Daniel Craig", "Chris Evans", "Ana de Armas"]
-    },
-    {
-      id: "9",
-      title: "1917",
-      genre: "War",
-      year: 2019,
-      rating: 8.2,
-      description: "Two British soldiers are tasked to deliver a message to call off a doomed attack during World War I.",
-      poster: "/1917.jpg",
-      director: "Sam Mendes",
-      cast: ["George MacKay", "Dean-Charles Chapman", "Mark Strong"]
-    },
-    {
-      id: "10",
-      title: "The Shape of Water",
-      genre: "Fantasy",
-      year: 2017,
-      rating: 7.3,
-      description: "At a top secret research facility, a lonely janitor forms a unique relationship with an amphibious creature.",
-      poster: "/shape-of-water.jpg",
-      director: "Guillermo del Toro",
-      cast: ["Sally Hawkins", "Octavia Spencer", "Michael Shannon"]
-    },
-    {
-      id: "11",
-      title: "John Wick",
+      id: "fallback-2",
+      title: "The Dark Knight",
       genre: "Action",
-      year: 2014,
-      rating: 7.4,
-      description: "An ex-hitman comes out of retirement to track down the gangsters that killed his dog and took his car.",
-      poster: "/john-wick.jpg",
-      director: "Chad Stahelski",
-      cast: ["Keanu Reeves", "Michael Nyqvist", "Alfie Allen"]
+      year: 2008,
+      rating: 9.0,
+      description: "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests.",
+      poster: "",
+      director: "Christopher Nolan",
+      cast: ["Christian Bale", "Heath Ledger", "Aaron Eckhart"]
     },
     {
-      id: "12",
-      title: "Lady Bird",
-      genre: "Comedy",
-      year: 2017,
-      rating: 7.4,
-      description: "A high school senior navigates a loving but turbulent relationship with her strong-willed mother over her last year before college.",
-      poster: "/lady-bird.jpg",
-      director: "Greta Gerwig",
-      cast: ["Saoirse Ronan", "Laurie Metcalf", "Tracy Letts"]
+      id: "fallback-3",
+      title: "Pulp Fiction",
+      genre: "Crime",
+      year: 1994,
+      rating: 8.9,
+      description: "The lives of two mob hitmen, a boxer, a gangster and his wife intertwine in four tales of violence and redemption.",
+      poster: "",
+      director: "Quentin Tarantino",
+      cast: ["John Travolta", "Uma Thurman", "Samuel L. Jackson"]
     },
     {
-      id: "13",
-      title: "Hereditary",
-      genre: "Horror",
-      year: 2018,
-      rating: 7.3,
-      description: "A grieving family is haunted by tragedy and disturbing secrets.",
-      poster: "/hereditary.jpg",
-      director: "Ari Aster",
-      cast: ["Toni Collette", "Alex Wolff", "Milly Shapiro"]
+      id: "fallback-4",
+      title: "Inception",
+      genre: "Science Fiction",
+      year: 2010,
+      rating: 8.8,
+      description: "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.",
+      poster: "",
+      director: "Christopher Nolan",
+      cast: ["Leonardo DiCaprio", "Marion Cotillard", "Tom Hardy"]
     },
     {
-      id: "14",
-      title: "Call Me by Your Name",
+      id: "fallback-5",
+      title: "The Godfather",
+      genre: "Drama",
+      year: 1972,
+      rating: 9.2,
+      description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+      poster: "",
+      director: "Francis Ford Coppola",
+      cast: ["Marlon Brando", "Al Pacino", "James Caan"]
+    },
+    {
+      id: "fallback-6",
+      title: "Spirited Away",
+      genre: "Animation",
+      year: 2001,
+      rating: 8.6,
+      description: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits.",
+      poster: "",
+      director: "Hayao Miyazaki",
+      cast: ["Daveigh Chase", "Suzanne Pleshette", "Miyu Irino"]
+    },
+    {
+      id: "fallback-7",
+      title: "Casablanca",
       genre: "Romance",
-      year: 2017,
-      rating: 7.9,
-      description: "In 1980s Italy, romance blossoms between a seventeen-year-old student and the older man hired as his father's research assistant.",
-      poster: "/call-me-by-your-name.jpg",
-      director: "Luca Guadagnino",
-      cast: ["Timothée Chalamet", "Armie Hammer", "Michael Stuhlbarg"]
+      year: 1942,
+      rating: 8.5,
+      description: "A cynical American expatriate struggles to decide whether or not he should help his former lover and her fugitive husband escape French Morocco.",
+      poster: "",
+      director: "Michael Curtiz",
+      cast: ["Humphrey Bogart", "Ingrid Bergman", "Paul Henreid"]
     },
     {
-      id: "15",
-      title: "Parasite",
+      id: "fallback-8",
+      title: "The Silence of the Lambs",
       genre: "Thriller",
-      year: 2019,
-      rating: 8.5,
-      description: "A poor family schemes to become employed by a wealthy family and infiltrate their household by posing as unrelated, highly qualified individuals.",
-      poster: "/parasite.jpg",
-      director: "Bong Joon-ho",
-      cast: ["Song Kang-ho", "Lee Sun-kyun", "Cho Yeo-jeong"]
+      year: 1991,
+      rating: 8.6,
+      description: "A young FBI cadet must receive the help of an incarcerated and manipulative cannibal killer to help catch another serial killer.",
+      poster: "",
+      director: "Jonathan Demme",
+      cast: ["Jodie Foster", "Anthony Hopkins", "Scott Glenn"]
+    },
+    {
+      id: "fallback-9",
+      title: "Goodfellas",
+      genre: "Crime",
+      year: 1990,
+      rating: 8.7,
+      description: "The story of Henry Hill and his life in the mob, covering his relationship with his wife Karen Hill and his mob partners.",
+      poster: "",
+      director: "Martin Scorsese",
+      cast: ["Robert De Niro", "Ray Liotta", "Joe Pesci"]
+    },
+    {
+      id: "fallback-10",
+      title: "Schindler's List",
+      genre: "Drama",
+      year: 1993,
+      rating: 8.9,
+      description: "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce.",
+      poster: "",
+      director: "Steven Spielberg",
+      cast: ["Liam Neeson", "Ralph Fiennes", "Ben Kingsley"]
     }
   ];
 
-  // Smart filtering based on preferences
-  let filteredMovies = movieDatabase.filter(movie => {
-    const genreMatch = movie.genre.toLowerCase() === preferences.preferredGenre.toLowerCase();
-    return genreMatch;
-  });
+  // Filter by genre preference
+  const genreMatches = fallbackMovies.filter(movie => 
+    movie.genre.toLowerCase() === preferences.preferredGenre.toLowerCase()
+  );
 
-  // If not enough movies in preferred genre, add similar movies
-  if (filteredMovies.length < 10) {
-    const additionalMovies = movieDatabase.filter(movie => 
-      !filteredMovies.includes(movie) && 
-      (movie.genre !== preferences.preferredGenre || Math.random() > 0.5)
-    );
-    filteredMovies = [...filteredMovies, ...additionalMovies];
+  // If we have genre matches, return them, otherwise return a mix
+  if (genreMatches.length >= 5) {
+    return genreMatches.slice(0, 10);
+  } else {
+    return [...genreMatches, ...fallbackMovies.filter(movie => 
+      !genreMatches.includes(movie)
+    )].slice(0, 10);
   }
-
-  // Mood-based scoring and sorting
-  const scoredMovies = filteredMovies.map(movie => {
-    let moodScore = 0;
-    
-    // Mood matching logic
-    const mood = preferences.currentMood.toLowerCase();
-    if (mood.includes('excited') || mood.includes('action')) {
-      moodScore += movie.genre === 'Action' ? 2 : 0;
-    }
-    if (mood.includes('laugh') || mood.includes('light')) {
-      moodScore += movie.genre === 'Comedy' ? 2 : 0;
-    }
-    if (mood.includes('romantic') || mood.includes('romance')) {
-      moodScore += movie.genre === 'Romance' ? 2 : 0;
-    }
-    if (mood.includes('cry') || mood.includes('deep')) {
-      moodScore += movie.genre === 'Drama' ? 2 : 0;
-    }
-    if (mood.includes('scared') || mood.includes('horror')) {
-      moodScore += movie.genre === 'Horror' ? 2 : 0;
-    }
-    if (mood.includes('think') || mood.includes('mysterious')) {
-      moodScore += ['Mystery', 'Thriller', 'Science Fiction'].includes(movie.genre) ? 2 : 0;
-    }
-
-    // Rating boost
-    moodScore += movie.rating / 2;
-
-    return { ...movie, moodScore };
-  });
-
-  // Sort by mood score and return top 10
-  const recommendations = scoredMovies
-    .sort((a, b) => b.moodScore - a.moodScore)
-    .slice(0, 10);
-
-  console.log("Generated recommendations for:", preferences);
-  console.log("Recommendations:", recommendations);
-
-  return recommendations;
 };

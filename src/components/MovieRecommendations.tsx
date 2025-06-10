@@ -29,7 +29,9 @@ const MovieRecommendations = ({
       if (recommendations.length === 0) {
         setLoading(true);
         try {
+          console.log("Fetching recommendations for preferences:", preferences);
           const newRecommendations = await generateMovieRecommendations(preferences);
+          console.log("Received recommendations:", newRecommendations);
           setRecommendations(newRecommendations);
         } catch (error) {
           console.error("Error generating recommendations:", error);
@@ -41,6 +43,16 @@ const MovieRecommendations = ({
 
     fetchRecommendations();
   }, [preferences, recommendations.length, setRecommendations]);
+
+  const handleMovieClick = (movie: MovieRecommendation) => {
+    console.log("Movie selected:", movie);
+    onMovieSelect(movie);
+  };
+
+  const handleBackClick = () => {
+    console.log("Back button clicked");
+    onBack();
+  };
 
   if (loading) {
     return (
@@ -114,12 +126,26 @@ const MovieRecommendations = ({
               <Card 
                 key={movie.id} 
                 className="bg-white border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-300 cursor-pointer group rounded-2xl overflow-hidden"
-                onClick={() => onMovieSelect(movie)}
+                onClick={() => handleMovieClick(movie)}
                 style={{animationDelay: `${index * 0.1}s`}}
               >
                 <CardContent className="p-0">
                   <div className="aspect-[2/3] bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center relative overflow-hidden">
-                    <Film className="w-12 h-12 text-gray-400 group-hover:scale-125 transition-transform duration-300" />
+                    {movie.poster ? (
+                      <img 
+                        src={movie.poster} 
+                        alt={movie.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                          target.nextElementSibling?.classList.remove('hidden');
+                        }}
+                      />
+                    ) : null}
+                    <div className={`${movie.poster ? 'hidden' : 'flex'} w-full h-full items-center justify-center`}>
+                      <Film className="w-12 h-12 text-gray-400 group-hover:scale-125 transition-transform duration-300" />
+                    </div>
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <Play className="w-12 h-12 text-white transform scale-0 group-hover:scale-100 transition-transform duration-300 bg-white/20 rounded-full p-3 backdrop-blur-sm" />
                     </div>
@@ -164,7 +190,7 @@ const MovieRecommendations = ({
           {/* Back Button */}
           <div className="text-center">
             <Button 
-              onClick={onBack}
+              onClick={handleBackClick}
               variant="outline"
               className="h-12 px-6 border-gray-300 text-gray-700 hover:bg-gray-50 rounded-lg font-semibold"
             >
