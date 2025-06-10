@@ -260,7 +260,7 @@ const Auth = () => {
                 setFullName("");
                 setUsername("");
               }}
-              className="text-slate-300 hover:text-white"
+              className="text-slate-200 hover:text-white underline-offset-4"
             >
               {isLogin
                 ? "Don't have an account? Sign up"
