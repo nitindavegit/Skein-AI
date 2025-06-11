@@ -100,6 +100,10 @@ const Auth = () => {
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       });
 
@@ -114,6 +118,9 @@ const Auth = () => {
         } else {
           throw error;
         }
+      } else {
+        // The redirect will happen automatically, no need to navigate manually
+        console.log("Redirecting to Google OAuth...");
       }
     } catch (error: any) {
       toast({
@@ -121,9 +128,9 @@ const Auth = () => {
         description: error.message,
         variant: "destructive",
       });
-    } finally {
       setGoogleLoading(false);
     }
+    // Don't set googleLoading to false here as the page will redirect
   };
 
   if (initialLoading) {
@@ -144,10 +151,10 @@ const Auth = () => {
           <div className="flex justify-center">
             <Logo size="lg" />
           </div>
-          <CardTitle className="text-2xl text-white">
+          <CardTitle className="text-2xl text-white font-bold">
             {isLogin ? "Welcome back" : "Create account"}
           </CardTitle>
-          <CardDescription className="text-slate-300">
+          <CardDescription className="text-slate-200 text-base">
             {isLogin
               ? "Sign in to your account to continue"
               : "Sign up to get personalized movie recommendations"}
@@ -157,11 +164,11 @@ const Auth = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full bg-white text-slate-900 border-white hover:bg-slate-100 font-medium"
+            className="w-full bg-white text-slate-900 border-white hover:bg-slate-100 font-semibold py-3 text-base h-12"
             onClick={handleGoogleAuth}
             disabled={googleLoading}
           >
-            <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
+            <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -179,7 +186,7 @@ const Auth = () => {
                 d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
               />
             </svg>
-            {googleLoading ? "Loading..." : `Continue with Google`}
+            {googleLoading ? "Redirecting to Google..." : `Continue with Google`}
           </Button>
 
           <div className="relative">
@@ -195,7 +202,7 @@ const Auth = () => {
             {!isLogin && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="text-white font-medium">
+                  <Label htmlFor="fullName" className="text-white font-semibold text-base">
                     Full Name
                   </Label>
                   <Input
@@ -204,12 +211,12 @@ const Auth = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
+                    className="bg-white/90 border-white/50 text-slate-900 placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500 h-12 text-base font-medium"
                     placeholder="Enter your full name"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-white font-medium">
+                  <Label htmlFor="username" className="text-white font-semibold text-base">
                     Username
                   </Label>
                   <Input
@@ -218,14 +225,14 @@ const Auth = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
+                    className="bg-white/90 border-white/50 text-slate-900 placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500 h-12 text-base font-medium"
                     placeholder="Choose a username"
                   />
                 </div>
               </>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white font-medium">
+              <Label htmlFor="email" className="text-white font-semibold text-base">
                 Email
               </Label>
               <Input
@@ -234,12 +241,12 @@ const Auth = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
+                className="bg-white/90 border-white/50 text-slate-900 placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500 h-12 text-base font-medium"
                 placeholder="Enter your email"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white font-medium">
+              <Label htmlFor="password" className="text-white font-semibold text-base">
                 Password
               </Label>
               <div className="relative">
@@ -249,14 +256,14 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white pr-10"
+                  className="bg-white/90 border-white/50 text-slate-900 placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500 pr-12 h-12 text-base font-medium"
                   placeholder="Enter your password"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-slate-300 hover:text-white"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-slate-600 hover:text-slate-800"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -269,7 +276,7 @@ const Auth = () => {
             </div>
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 text-base"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 text-base h-12"
               disabled={loading}
             >
               {loading
@@ -289,7 +296,7 @@ const Auth = () => {
                 setFullName("");
                 setUsername("");
               }}
-              className="text-white hover:text-slate-200 underline-offset-4 font-medium"
+              className="text-white hover:text-slate-200 underline-offset-4 font-semibold text-base"
             >
               {isLogin
                 ? "Don't have an account? Sign up"
