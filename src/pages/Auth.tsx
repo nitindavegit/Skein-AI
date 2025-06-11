@@ -103,13 +103,25 @@ const Auth = () => {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        // Check if Google provider is configured
+        if (error.message.includes('Provider not found') || error.message.includes('Invalid provider')) {
+          toast({
+            title: "Google Auth Not Available",
+            description: "Google authentication is not configured. Please use email/password login.",
+            variant: "destructive",
+          });
+        } else {
+          throw error;
+        }
+      }
     } catch (error: any) {
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       });
+    } finally {
       setGoogleLoading(false);
     }
   };
@@ -127,7 +139,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md glass-effect border-slate-700">
+      <Card className="w-full max-w-md glass-effect border-slate-700 bg-white/10 backdrop-blur-md">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">
             <Logo size="lg" />
@@ -145,7 +157,7 @@ const Auth = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full bg-slate-800 border-slate-600 text-white hover:bg-slate-700"
+            className="w-full bg-white text-slate-900 border-white hover:bg-slate-100 font-medium"
             onClick={handleGoogleAuth}
             disabled={googleLoading}
           >
@@ -172,10 +184,10 @@ const Auth = () => {
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-600" />
+              <span className="w-full border-t border-slate-400" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-slate-800 px-2 text-slate-400">Or continue with</span>
+              <span className="bg-slate-800 px-2 text-slate-300">Or continue with</span>
             </div>
           </div>
 
@@ -183,7 +195,7 @@ const Auth = () => {
             {!isLogin && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="fullName" className="text-slate-200">
+                  <Label htmlFor="fullName" className="text-white font-medium">
                     Full Name
                   </Label>
                   <Input
@@ -192,12 +204,12 @@ const Auth = () => {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     required
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400"
+                    className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
                     placeholder="Enter your full name"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="username" className="text-slate-200">
+                  <Label htmlFor="username" className="text-white font-medium">
                     Username
                   </Label>
                   <Input
@@ -206,14 +218,14 @@ const Auth = () => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
-                    className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400"
+                    className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
                     placeholder="Choose a username"
                   />
                 </div>
               </>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-200">
+              <Label htmlFor="email" className="text-white font-medium">
                 Email
               </Label>
               <Input
@@ -222,12 +234,12 @@ const Auth = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400"
+                className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white"
                 placeholder="Enter your email"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-slate-200">
+              <Label htmlFor="password" className="text-white font-medium">
                 Password
               </Label>
               <div className="relative">
@@ -237,14 +249,14 @@ const Auth = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-slate-800 border-slate-600 text-white placeholder:text-slate-400 pr-10"
+                  className="bg-white/20 border-white/30 text-white placeholder:text-slate-300 focus:border-white focus:ring-white pr-10"
                   placeholder="Enter your password"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
-                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-slate-400"
+                  className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent text-slate-300 hover:text-white"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -257,7 +269,7 @@ const Auth = () => {
             </div>
             <Button
               type="submit"
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 text-base"
               disabled={loading}
             >
               {loading
@@ -277,7 +289,7 @@ const Auth = () => {
                 setFullName("");
                 setUsername("");
               }}
-              className="text-slate-200 hover:text-white underline-offset-4"
+              className="text-white hover:text-slate-200 underline-offset-4 font-medium"
             >
               {isLogin
                 ? "Don't have an account? Sign up"
