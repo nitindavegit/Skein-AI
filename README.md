@@ -1,6 +1,21 @@
-# Welcome to your Lovable project
+# Welcome to Skein-AI
 
 ## Project info
+### 🎬 Skein-AI
+
+Skein-AI Suggest is a sleek, AI-powered web app that helps users discover movies based on their current mood or genre preference. By leveraging the power of artificial intelligence, this app provides intelligent and personalized film recommendations in seconds.
+
+### 🔹 Key Features
+
+🎭 Mood-based movie suggestions
+
+🎞️ Genre-specific recommendations
+
+🤖 Smart, conversational AI interface
+
+💻 Clean and responsive UI design
+
+⚡️ Fast and lightweight web experience
 
 **URL**: https://lovable.dev/projects/f72ac237-2029-4496-96fc-b1d12c22555e
 
