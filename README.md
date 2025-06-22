@@ -17,7 +17,7 @@ Skein-AI Suggest is a sleek, AI-powered web app that helps users discover movies
 
 ⚡️ Fast and lightweight web experience
 
-**URL**: https://lovable.dev/projects/f72ac237-2029-4496-96fc-b1d12c22555e
+**URL**: https://film-flow-ai-suggest.lovable.app
 
 ## How can I edit this code?
 
